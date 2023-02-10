@@ -1,8 +1,8 @@
-import 'package:conversorapp/services/news_service.dart';
+import 'package:conversorapp/models/convert_model.dart';
+import 'package:conversorapp/services/conversor_service.dart';
+import 'package:conversorapp/widgets/lista_cotizaciones.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../widgets/lista_noticias.dart';
 
 class Tab1Page extends StatefulWidget {
   @override
@@ -13,12 +13,14 @@ class _Tab1PageState extends State<Tab1Page>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    final headlines = Provider.of<NewsService>(context).headlines;
+    final List<Casa> cotizaciones = [];
+    final headlines = Provider.of<ConvertService>(context);
 
+    print(headlines);
     return Scaffold(
-        body: (headlines.length == 0)
+        body: (headlines == 0)
             ? Center(child: CircularProgressIndicator())
-            : ListaNoticias(headlines));
+            : ListaCotizaciones(cotizaciones));
   }
 
   @override
