@@ -15,7 +15,7 @@ class _Tab1PageState extends State<Tab1Page>
   Widget build(BuildContext context) {
     final List<Casa> cotizaciones = [];
     final headlines = Provider.of<ConvertService>(context);
-
+    print('prueba de cotizaciones');
     print(headlines);
     return Scaffold(
         body: (headlines == 0)
