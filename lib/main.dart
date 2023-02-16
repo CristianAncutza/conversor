@@ -1,5 +1,5 @@
 import 'package:conversorapp/pages/tabs_page.dart';
-import 'package:conversorapp/services/news_service.dart';
+import 'package:conversorapp/services/conversor_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
             // ignore: unnecessary_new
-            create: (_) => new NewsService()),
+            create: (_) => new ConvertService()),
       ],
       child: MaterialApp(
           title: 'Material App',

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import '../models/convert_model.dart';
 
 class ListaCotizaciones extends StatelessWidget {
-  final List<Casa> cotizaciones;
+  final List<ConvertResponse> cotizaciones;
 
   const ListaCotizaciones(this.cotizaciones);
 
   @override
   Widget build(BuildContext context) {
+    print("lista cotizaciones prueba");
+    print(this.cotizaciones);
     return ListView.builder(
         itemCount: this.cotizaciones.length,
         itemBuilder: (BuildContext context, int index) {
@@ -19,7 +21,7 @@ class ListaCotizaciones extends StatelessWidget {
 }
 
 class _Cotizacion extends StatelessWidget {
-  final Casa cotizacion;
+  final ConvertResponse cotizacion;
   final int index;
 
   const _Cotizacion({required this.cotizacion, required this.index});
@@ -68,7 +70,7 @@ class _TarjetaBotones extends StatelessWidget {
 }
 
 class _TarjetaBody extends StatelessWidget {
-  final Casa cotizacion;
+  final ConvertResponse cotizacion;
 
   const _TarjetaBody(this.cotizacion);
 
@@ -76,7 +78,7 @@ class _TarjetaBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Text((cotizacion.agencia)));
+        child: Text((cotizacion.casa.agencia)));
   }
 }
 

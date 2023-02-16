@@ -1,8 +1,9 @@
-import 'package:conversorapp/models/convert_model.dart';
 import 'package:conversorapp/services/conversor_service.dart';
 import 'package:conversorapp/widgets/lista_cotizaciones.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../services/news_service.dart';
 
 class Tab1Page extends StatefulWidget {
   @override
@@ -13,25 +14,28 @@ class _Tab1PageState extends State<Tab1Page>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    final List<Casa> cotizaciones = [];
-    final headlines = Provider.of<ConvertService>(context);
     print('prueba de cotizaciones');
-    print(headlines);
-    return Scaffold(
-        body: (headlines == 0)
-            ? Center(child: CircularProgressIndicator())
-            : ListaCotizaciones(cotizaciones));
+
+    //da un error aca con el convert service
+    final headlines = Provider.of<ConvertService>(context);
+
+    print("mi dulce verga");
+    //return Scaffold(body: ListaCotizaciones(headlines));
+    return const Scaffold(
+      body: Center(
+        child: Text("comela"),
+      ),
+    );
   }
 
   @override
   bool get wantKeepAlive => true;
 }
-
-
-/*class tab1Page extends StatelessWidget {
+/*
+class tab1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final newsService = Provider.of<NewsService>(context);
+    final convertService = Provider.of<ConvertService>(context);
 
     return const Scaffold(
       body: Center(
