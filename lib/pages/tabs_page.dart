@@ -19,14 +19,15 @@ class _Navegacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
-    print('flutter es una mierda');
+
     return BottomNavigationBar(
         currentIndex: navegacionModel.paginaActual,
         onTap: (i) => navegacionModel.paginaActual = i,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: 'cotizaciones'),
-          BottomNavigationBarItem(icon: Icon(Icons.public), label: 'conversor'),
+              icon: Icon(Icons.equalizer), label: 'Cotización'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.currency_exchange), label: 'Conversor'),
         ]);
   }
 }
@@ -55,7 +56,7 @@ class _NavegacionModel with ChangeNotifier {
 
   set paginaActual(int valor) {
     this._paginaActual = valor;
-    print("fluter es una garcha");
+
     _pageController.animateToPage(valor,
         duration: Duration(milliseconds: 250), curve: Curves.easeOut);
 

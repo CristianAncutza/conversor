@@ -21,8 +21,9 @@ class ConvertService with ChangeNotifier {
     final resp = await http.get(Uri.parse(url));
     print(resp.body);
     final convertResponse = convertResponseFromJson(resp.body);
-    print(convertResponse);
-    //this.casa.addAll(convertResponse);
+
+    this.rates.addAll(convertResponse);
+
     notifyListeners();
   }
 }

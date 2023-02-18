@@ -22,6 +22,7 @@ class ListaCotizaciones extends StatelessWidget {
 
 class _Cotizacion extends StatelessWidget {
   final ConvertResponse cotizacion;
+
   final int index;
 
   const _Cotizacion({required this.cotizacion, required this.index});
@@ -34,7 +35,7 @@ class _Cotizacion extends StatelessWidget {
         // _TarjetaTitulo(cotizacion),
         // _TarjetaImagen(cotizacion),
         _TarjetaBody(cotizacion),
-        _TarjetaBotones(),
+        //_TarjetaBotones(),
         SizedBox(height: 10),
         Divider(),
       ],
@@ -69,6 +70,7 @@ class _TarjetaBotones extends StatelessWidget {
   }
 }
 
+//tarjetaBody
 class _TarjetaBody extends StatelessWidget {
   final ConvertResponse cotizacion;
 
@@ -78,9 +80,11 @@ class _TarjetaBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Text((cotizacion.casa.agencia)));
+        child: Text((cotizacion.casa.venta)));
   }
 }
+
+
 
 /*class _TarjetaImagen extends StatelessWidget {
   final Casa noticia;

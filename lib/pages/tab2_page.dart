@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../models/convert_model.dart';
 import '../services/conversor_service.dart';
 
+//PANTALLA CONVERSOR
 class Tab2Page extends StatefulWidget {
   @override
   _Tab2PageState createState() => _Tab2PageState();
