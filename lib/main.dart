@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Material App',
           debugShowCheckedModeBanner: false,
-          home: TabsPage()),
+          home: TabsPage(),
+          theme: ThemeData.dark()
+              .copyWith(appBarTheme: AppBarTheme(color: Colors.indigo))),
     );
   }
 }

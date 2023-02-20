@@ -17,43 +17,64 @@ class _Tab1PageState extends State<Tab1Page>
   Widget build(BuildContext context) {
     final headlines = Provider.of<ConvertService>(context).rates;
     final _rates = RatesDataSource(headlines);
+
     return SafeArea(
         child: Scaffold(
       body: SfDataGrid(
-        source: _rates,
-        columns: [
-          // ignore: deprecated_member_use
-          GridTextColumn(
-              columnName: 'nombre',
-              label: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'nombre',
-                    overflow: TextOverflow.ellipsis,
-                  ))),
-          // ignore: deprecated_member_use
-          GridTextColumn(
-              columnName: 'compra',
-              label: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'compra',
-                    overflow: TextOverflow.ellipsis,
-                  ))),
-          // ignore: deprecated_member_use
-          GridTextColumn(
-              columnName: 'venta',
-              label: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'venta',
-                    overflow: TextOverflow.ellipsis,
-                  )))
-        ],
-      ),
+          highlightRowOnHover: true,
+          //columnWidthMode: ColumnWidthMode.auto,
+          columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
+          //columnWidthMode: ColumnWidthMode.lastColumnFill,
+          //selectionMode: SelectionMode.multiple,
+          source: _rates,
+          allowSorting: true,
+          columns: [
+            // ignore: deprecated_member_use
+            GridTextColumn(
+                columnName: 'nombre',
+                autoFitPadding: EdgeInsets.all(10.0),
+                label: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    alignment: Alignment.centerRight,
+                    child: const Text(
+                      'Nombre',
+                      overflow: TextOverflow.ellipsis,
+                    ))),
+            // ignore: deprecated_member_use
+            GridTextColumn(
+                columnName: 'compra',
+                autoFitPadding: EdgeInsets.all(10.0),
+                label: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    alignment: Alignment.centerRight,
+                    child: const Text(
+                      'Compra',
+                      overflow: TextOverflow.ellipsis,
+                    ))),
+            // ignore: deprecated_member_use
+            GridTextColumn(
+                columnName: 'venta',
+                autoFitPadding: EdgeInsets.all(10.0),
+                label: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    alignment: Alignment.centerRight,
+                    child: const Text(
+                      'Venta',
+                      overflow: TextOverflow.ellipsis,
+                    )))
+          ],
+          //CABECERA
+          /*stackedHeaderRows: <StackedHeaderRow>[
+            StackedHeaderRow(cells: [
+              StackedHeaderCell(
+                  columnNames: ['nombre', 'compra', 'venta'],
+                  child: Container(
+                      color: Color.fromARGB(255, 33, 74, 38),
+                      child: Center(child: Text('Cotizaciones')))),
+            ]),
+          ],*/
+          gridLinesVisibility: GridLinesVisibility.both,
+          headerGridLinesVisibility: GridLinesVisibility.both),
     ));
     //return Scaffold(body: ListaCotizaciones(headlines));
     /*return const Scaffold(
@@ -76,7 +97,7 @@ class RatesDataSource extends DataGridSource {
               DataGridCell<String>(
                   columnName: 'compra', value: dataGridRow.casa.compra),
               DataGridCell<String>(
-                  columnName: 'compra', value: dataGridRow.casa.venta),
+                  columnName: 'venta', value: dataGridRow.casa.venta),
             ]))
         .toList();
   }
@@ -87,11 +108,25 @@ class RatesDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
+        color: const Color.fromARGB(255, 49, 84, 51),
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Container(
-        child: Text(dataGridCell.value.toString()),
-      );
-    }).toList());
+          TextStyle? getTextStyle() {
+            if (dataGridCell.columnName == 'venta') {
+              return const TextStyle(color: Color.fromARGB(255, 179, 53, 53));
+            } else {
+              return null;
+            }
+          }
+
+          return Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              dataGridCell.value.toString(),
+              style: getTextStyle(),
+            ),
+          );
+        }).toList());
   }
 }
 
