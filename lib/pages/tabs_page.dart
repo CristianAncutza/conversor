@@ -1,4 +1,5 @@
 import 'package:conversorapp/pages/tab1_page.dart';
+import 'package:conversorapp/pages/tab2_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +44,7 @@ class _Paginas extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         Tab1Page(),
+        Tab2Page(),
       ],
     );
   }

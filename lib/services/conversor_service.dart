@@ -10,7 +10,6 @@ class ConvertService with ChangeNotifier {
   List<ConvertResponse> rates = [];
 
   ConvertService() {
-    print('pase por conversor service 2');
     this.getRates();
   }
 

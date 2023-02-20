@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../widgets/main_result.dart';
-import '../widgets/sub_result.dart';
 
 class conversorScreen extends StatelessWidget {
   final conversorCtl = Get.find<conversorController>();
@@ -14,8 +13,8 @@ class conversorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Column(
           children: [
-            SubResult(text: '${conversorCtl.firstValue}'),
-            SubResult(text: '${conversorCtl.secondValue}'),
+            //SubResult(text: '${conversorCtl.firstValue}'),
+            //SubResult(text: '${conversorCtl.secondValue}'),
             MainResultText(text: '${conversorCtl.result}')
           ],
         ));
