@@ -111,7 +111,7 @@ class RatesDataSource extends DataGridSource {
         color: const Color.fromARGB(255, 49, 84, 51),
         cells: row.getCells().map<Widget>((dataGridCell) {
           TextStyle? getTextStyle() {
-            if (dataGridCell.columnName == 'venta') {
+            if (dataGridCell.columnName == 'compra') {
               return const TextStyle(color: Color.fromARGB(255, 179, 53, 53));
             } else {
               return null;

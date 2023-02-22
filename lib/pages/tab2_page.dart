@@ -1,8 +1,7 @@
-import 'package:conversorapp/widgets/drop_down.dart';
+//import 'package:conversorapp/widgets/drop_down.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/convert_model.dart';
+//import '../models/convert_model.dart';
 import '../services/conversor_service.dart';
 
 //PANTALLA CONVERSOR
@@ -13,18 +12,20 @@ class Tab2Page extends StatefulWidget {
 
 class _Tab2PageState extends State<Tab2Page>
     with AutomaticKeepAliveClientMixin {
+  String result = "_";
   @override
   Widget build(BuildContext context) {
-    final List<Casa> cotizaciones = [];
-    List<String> currencies;
-    String from;
-    String to;
+    //final List<Casa> cotizaciones = [];
+    //List<String> currencies;
+    //String from;
+    //String to;
     //variables para el exchange rate
-    double rate;
-    String result = "";
+    //var rate;
 
+    //String currency = "";
     final headlines = Provider.of<ConvertService>(context);
-    print(headlines);
+    print("dolar oficial");
+    var dolaroficial = headlines.rates.first.casa.compra;
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -46,16 +47,37 @@ class _Tab2PageState extends State<Tab2Page>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const TextField(
+                        TextField(
                           //calculo del resultado de la conversion
-                          /*onSubmitted: (value) {
-                            rate = ConvertResponse(casa: casa).casa.venta;
-                            setState(() {
-                              result = (rate * double.parse(value))
-                                  .toStringAsFixed(3);
-                            });
-                          },*/
-                          decoration: InputDecoration(
+                          onChanged: (value) {
+                            //Dolares a pesos
+                            //if (currency == "Dolar (USD)") {
+                            if (value != "" || value.isNotEmpty) {
+                              setState(() {
+                                result = (double.parse(value) *
+                                        double.parse(
+                                            dolaroficial.replaceAll(',', '.')))
+                                    .toStringAsFixed(2);
+                              });
+                            } else {
+                              setState(() {
+                                result = "_";
+                              });
+                            }
+                            //Pesos a dolares
+                            /*setState(() {
+                              result =
+                                  (double.parse(rate) * double.parse(value))
+                                      .toStringAsFixed(2);
+                            });*/
+                            /*}else if(currency == "Peso (ARS)"){
+                              rate = ConvertResponse(casa: casa).casa.venta;
+                              setState(() {
+                                result = (double.parse(rate) / double.parse(value))
+                                    .toStringAsFixed(3);
+                              });*/
+                          },
+                          decoration: const InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
                               labelText: "Valor a convertir",
@@ -63,7 +85,7 @@ class _Tab2PageState extends State<Tab2Page>
                                 fontWeight: FontWeight.normal,
                                 fontSize: 16.0,
                               )),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -77,7 +99,8 @@ class _Tab2PageState extends State<Tab2Page>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Dolar(USD)"),
+                            const Text("Dolar (USD)"),
+
                             //customDropDown(currencies, from, (from) {
                             //setState(){
                             //from = val;}
@@ -87,7 +110,7 @@ class _Tab2PageState extends State<Tab2Page>
                               child: Icon(Icons.swap_horiz),
                               elevation: 0.0,
                             ),
-                            Text("Peso(ARS)"),
+                            const Text("Peso (ARS)"),
                             //customDropDown(currencies, from, (from) {
                             //setState(){
                             //from = val;}
@@ -103,7 +126,7 @@ class _Tab2PageState extends State<Tab2Page>
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           child: Column(children: [
-                            Text(
+                            const Text(
                               "Resultado",
                               style: TextStyle(
                                   color: Colors.black,
@@ -111,11 +134,11 @@ class _Tab2PageState extends State<Tab2Page>
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(result,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
-                                  fontSize: 20.0,
+                                  fontSize: 40.0,
                                   fontWeight: FontWeight.bold,
-                                ))
+                                )),
                           ]),
                         )
                       ],
