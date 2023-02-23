@@ -64,12 +64,18 @@ class _Tab2PageState extends State<Tab2Page>
                               }
                             } else {
                               //Pesos a dolares
-                              setState(() {
-                                result = (double.parse(value) /
-                                        double.parse(
-                                            dolaroficial.replaceAll(',', '.')))
-                                    .toStringAsFixed(2);
-                              });
+                              if (value != "" || value.isNotEmpty) {
+                                setState(() {
+                                  result = (double.parse(value) /
+                                          double.parse(dolaroficial.replaceAll(
+                                              ',', '.')))
+                                      .toStringAsFixed(2);
+                                });
+                              } else {
+                                setState(() {
+                                  result = "0.00";
+                                });
+                              }
                             }
                           },
                           decoration: const InputDecoration(

@@ -26,9 +26,9 @@ class _Navegacion extends StatelessWidget {
         onTap: (i) => navegacionModel.paginaActual = i,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.equalizer), label: 'Cotización'),
-          BottomNavigationBarItem(
               icon: Icon(Icons.currency_exchange), label: 'Conversor'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.equalizer), label: 'Cotización'),
         ]);
   }
 }
@@ -43,8 +43,8 @@ class _Paginas extends StatelessWidget {
       // physics: BouncingScrollPhysics(),
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        Tab1Page(),
         Tab2Page(),
+        Tab1Page(),
       ],
     );
   }

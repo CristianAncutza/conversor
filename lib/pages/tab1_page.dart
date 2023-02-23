@@ -1,6 +1,6 @@
 import 'package:conversorapp/models/convert_model.dart';
 import 'package:conversorapp/services/conversor_service.dart';
-import 'package:conversorapp/widgets/lista_cotizaciones.dart';
+//import 'package:conversorapp/widgets/lista_cotizaciones.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -23,7 +23,7 @@ class _Tab1PageState extends State<Tab1Page>
       body: SfDataGrid(
           //columnWidthMode: ColumnWidthMode.none,
           //selectionMode: SelectionMode.multiple,
-          highlightRowOnHover: true,
+          //highlightRowOnHover: true,
           columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
           source: _rates,
           allowSorting: true,
@@ -33,8 +33,8 @@ class _Tab1PageState extends State<Tab1Page>
                 columnName: 'nombre',
                 autoFitPadding: EdgeInsets.all(10.0),
                 label: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(horizontal: 6.0),
+                    alignment: Alignment.center,
                     child: const Text(
                       'Nombre',
                       overflow: TextOverflow.ellipsis,
@@ -44,8 +44,8 @@ class _Tab1PageState extends State<Tab1Page>
                 columnName: 'compra',
                 autoFitPadding: EdgeInsets.all(10.0),
                 label: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(horizontal: 6.0),
+                    alignment: Alignment.center,
                     child: const Text(
                       'Compra',
                       overflow: TextOverflow.ellipsis,
@@ -55,8 +55,8 @@ class _Tab1PageState extends State<Tab1Page>
                 columnName: 'venta',
                 autoFitPadding: EdgeInsets.all(10.0),
                 label: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    //alignment: Alignment.center,
                     child: const Text(
                       'Venta',
                       overflow: TextOverflow.ellipsis,
@@ -88,9 +88,15 @@ class RatesDataSource extends DataGridSource {
               DataGridCell<String>(
                   columnName: 'nombre', value: dataGridRow.casa.nombre),
               DataGridCell<String>(
-                  columnName: 'compra', value: dataGridRow.casa.compra),
+                  columnName: 'compra',
+                  value:
+                      double.parse(dataGridRow.casa.compra.replaceAll(',', '.'))
+                          .toStringAsFixed(2)),
               DataGridCell<String>(
-                  columnName: 'venta', value: dataGridRow.casa.venta),
+                  columnName: 'venta',
+                  value:
+                      double.parse(dataGridRow.casa.venta.replaceAll(',', '.'))
+                          .toStringAsFixed(2)),
             ]))
         .toList();
   }
@@ -113,7 +119,28 @@ class RatesDataSource extends DataGridSource {
 
       return Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(10.0),
+        //padding: EdgeInsets.all(1.0),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(237, 52, 51, 51),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(133, 105, 240, 175),
+              offset: const Offset(
+                5.0,
+                5.0,
+              ),
+              blurRadius: 10.0,
+              spreadRadius: 1.0,
+            ), //BoxShadow
+            BoxShadow(
+              //color: Color.fromARGB(255, 74, 73, 73),
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 2.0,
+              spreadRadius: 0.0,
+            ), //BoxShadow
+          ],
+          //borderRadius: BorderRadius.circular(16.0),
+        ),
         child: Text(
           dataGridCell.value.toString(),
           style: getTextStyle(),
