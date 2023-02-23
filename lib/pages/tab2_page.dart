@@ -12,19 +12,17 @@ class Tab2Page extends StatefulWidget {
 
 class _Tab2PageState extends State<Tab2Page>
     with AutomaticKeepAliveClientMixin {
-  String result = "_";
+  String result = "0.00";
+  String currency = "dolar";
+  String value1 = "Dolar (USD)";
+  String value2 = "Peso (ARS)";
   @override
   Widget build(BuildContext context) {
-    //final List<Casa> cotizaciones = [];
     //List<String> currencies;
     //String from;
     //String to;
-    //variables para el exchange rate
-    //var rate;
-
-    //String currency = "";
     final headlines = Provider.of<ConvertService>(context);
-    print("dolar oficial");
+
     var dolaroficial = headlines.rates.first.casa.compra;
     return Scaffold(
         body: SafeArea(
@@ -38,7 +36,7 @@ class _Tab2PageState extends State<Tab2Page>
                     Container(
                       width: 200.0,
                       child: const Text(
-                        "Conversor",
+                        "",
                       ),
                     ),
                     Expanded(
@@ -50,32 +48,29 @@ class _Tab2PageState extends State<Tab2Page>
                         TextField(
                           //calculo del resultado de la conversion
                           onChanged: (value) {
-                            //Dolares a pesos
-                            //if (currency == "Dolar (USD)") {
-                            if (value != "" || value.isNotEmpty) {
+                            //dolares a pesos
+                            if (currency == "dolar") {
+                              if (value != "" || value.isNotEmpty) {
+                                setState(() {
+                                  result = (double.parse(value) *
+                                          double.parse(dolaroficial.replaceAll(
+                                              ',', '.')))
+                                      .toStringAsFixed(2);
+                                });
+                              } else {
+                                setState(() {
+                                  result = "0.00";
+                                });
+                              }
+                            } else {
+                              //Pesos a dolares
                               setState(() {
-                                result = (double.parse(value) *
+                                result = (double.parse(value) /
                                         double.parse(
                                             dolaroficial.replaceAll(',', '.')))
                                     .toStringAsFixed(2);
                               });
-                            } else {
-                              setState(() {
-                                result = "_";
-                              });
                             }
-                            //Pesos a dolares
-                            /*setState(() {
-                              result =
-                                  (double.parse(rate) * double.parse(value))
-                                      .toStringAsFixed(2);
-                            });*/
-                            /*}else if(currency == "Peso (ARS)"){
-                              rate = ConvertResponse(casa: casa).casa.venta;
-                              setState(() {
-                                result = (double.parse(rate) / double.parse(value))
-                                    .toStringAsFixed(3);
-                              });*/
                           },
                           decoration: const InputDecoration(
                               filled: true,
@@ -99,18 +94,32 @@ class _Tab2PageState extends State<Tab2Page>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("Dolar (USD)"),
+                            Text(value1),
 
                             //customDropDown(currencies, from, (from) {
                             //setState(){
                             //from = val;}
                             //})
                             FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  if (currency == "dolar") {
+                                    currency = "peso";
+                                    value1 = "Peso (ARS)";
+                                    value2 = "Dolar (USD)";
+                                    result = "0.00";
+                                  } else if (currency == "peso") {
+                                    currency = "dolar";
+                                    value2 = "Peso (ARS)";
+                                    value1 = "Dolar (USD)";
+                                    result = "0.00";
+                                  }
+                                });
+                              },
                               child: Icon(Icons.swap_horiz),
                               elevation: 0.0,
                             ),
-                            const Text("Peso (ARS)"),
+                            Text(value2),
                             //customDropDown(currencies, from, (from) {
                             //setState(){
                             //from = val;}

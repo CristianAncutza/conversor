@@ -21,11 +21,10 @@ class _Tab1PageState extends State<Tab1Page>
     return SafeArea(
         child: Scaffold(
       body: SfDataGrid(
-          highlightRowOnHover: true,
-          //columnWidthMode: ColumnWidthMode.auto,
-          columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
-          //columnWidthMode: ColumnWidthMode.lastColumnFill,
+          //columnWidthMode: ColumnWidthMode.none,
           //selectionMode: SelectionMode.multiple,
+          highlightRowOnHover: true,
+          columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
           source: _rates,
           allowSorting: true,
           columns: [
@@ -35,7 +34,7 @@ class _Tab1PageState extends State<Tab1Page>
                 autoFitPadding: EdgeInsets.all(10.0),
                 label: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.centerLeft,
                     child: const Text(
                       'Nombre',
                       overflow: TextOverflow.ellipsis,
@@ -57,7 +56,7 @@ class _Tab1PageState extends State<Tab1Page>
                 autoFitPadding: EdgeInsets.all(10.0),
                 label: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.centerLeft,
                     child: const Text(
                       'Venta',
                       overflow: TextOverflow.ellipsis,
@@ -76,12 +75,6 @@ class _Tab1PageState extends State<Tab1Page>
           gridLinesVisibility: GridLinesVisibility.both,
           headerGridLinesVisibility: GridLinesVisibility.both),
     ));
-    //return Scaffold(body: ListaCotizaciones(headlines));
-    /*return const Scaffold(
-      body: Center(
-        child: Text("test"),
-      ),
-    );*/
   }
 
   @override
@@ -108,25 +101,25 @@ class RatesDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        color: const Color.fromARGB(255, 49, 84, 51),
+        //color: const Color.fromARGB(255, 49, 84, 51),
         cells: row.getCells().map<Widget>((dataGridCell) {
-          TextStyle? getTextStyle() {
-            if (dataGridCell.columnName == 'compra') {
-              return const TextStyle(color: Color.fromARGB(255, 179, 53, 53));
-            } else {
-              return null;
-            }
-          }
+      TextStyle? getTextStyle() {
+        if (dataGridCell.columnName == 'compra') {
+          return const TextStyle(color: Color.fromARGB(255, 179, 53, 53));
+        } else {
+          return null;
+        }
+      }
 
-          return Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              dataGridCell.value.toString(),
-              style: getTextStyle(),
-            ),
-          );
-        }).toList());
+      return Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(10.0),
+        child: Text(
+          dataGridCell.value.toString(),
+          style: getTextStyle(),
+        ),
+      );
+    }).toList());
   }
 }
 

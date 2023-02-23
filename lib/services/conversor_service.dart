@@ -15,10 +15,10 @@ class ConvertService with ChangeNotifier {
 
   getRates() async {
     // ignore: unnecessary_string_interpolations
-    print('pase por conversor service');
+    //print('pase por conversor service');
     const url = '$_URL_CONVERT';
     final resp = await http.get(Uri.parse(url));
-    print(resp.body);
+    //print(resp.body);
     final convertResponse = convertResponseFromJson(resp.body);
 
     this.rates.addAll(convertResponse);
