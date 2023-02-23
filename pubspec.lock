@@ -212,18 +212,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "33141f9073c607bd113898d241aa6a03ccc1856a314bd061015180c35d47012f"
+      sha256: "5f7dae40707df507325ee045d1a172aea9f449ac4244d7c52391dd97208eeef8"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.50"
+    version: "20.4.51"
   syncfusion_flutter_datagrid:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datagrid
-      sha256: "5be9b82e66baecb6dd6b65e324fc738ae5a49c849592f8ac2d386a537a22b88d"
+      sha256: d476c5163fdfaaded09de6f69320c410b6bfda88e4e1c7cff423c483e21d8727
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.50"
+    version: "20.4.51"
   term_glyph:
     dependency: transitive
     description:

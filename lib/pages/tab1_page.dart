@@ -1,6 +1,7 @@
 import 'package:conversorapp/models/convert_model.dart';
 import 'package:conversorapp/services/conversor_service.dart';
 //import 'package:conversorapp/widgets/lista_cotizaciones.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -20,10 +21,14 @@ class _Tab1PageState extends State<Tab1Page>
 
     return SafeArea(
         child: Scaffold(
-      body: SfDataGrid(
+            body: SfDataGridTheme(
+      data: SfDataGridThemeData(headerColor: const Color(0xff009889)),
+      child: SfDataGrid(
           //columnWidthMode: ColumnWidthMode.none,
           //selectionMode: SelectionMode.multiple,
           //highlightRowOnHover: true,
+          columnWidthMode: ColumnWidthMode.fill,
+          rowHeight: 100,
           columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
           source: _rates,
           allowSorting: true,
@@ -35,10 +40,9 @@ class _Tab1PageState extends State<Tab1Page>
                 label: Container(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Nombre',
-                      overflow: TextOverflow.ellipsis,
-                    ))),
+                    child: const Text('Nombre',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20)))),
             // ignore: deprecated_member_use
             GridTextColumn(
                 columnName: 'compra',
@@ -46,21 +50,19 @@ class _Tab1PageState extends State<Tab1Page>
                 label: Container(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
                     alignment: Alignment.center,
-                    child: const Text(
-                      'Compra',
-                      overflow: TextOverflow.ellipsis,
-                    ))),
+                    child: const Text('Compra',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20)))),
             // ignore: deprecated_member_use
             GridTextColumn(
                 columnName: 'venta',
                 autoFitPadding: EdgeInsets.all(10.0),
                 label: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    //alignment: Alignment.center,
-                    child: const Text(
-                      'Venta',
-                      overflow: TextOverflow.ellipsis,
-                    )))
+                    alignment: Alignment.center,
+                    child: const Text('Venta',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20))))
           ],
           //CABECERA
           /*stackedHeaderRows: <StackedHeaderRow>[
@@ -74,7 +76,7 @@ class _Tab1PageState extends State<Tab1Page>
           ],*/
           gridLinesVisibility: GridLinesVisibility.both,
           headerGridLinesVisibility: GridLinesVisibility.both),
-    ));
+    )));
   }
 
   @override
@@ -111,9 +113,10 @@ class RatesDataSource extends DataGridSource {
         cells: row.getCells().map<Widget>((dataGridCell) {
       TextStyle? getTextStyle() {
         if (dataGridCell.columnName == 'compra') {
-          return const TextStyle(color: Color.fromARGB(255, 179, 53, 53));
+          return const TextStyle(
+              color: Color.fromARGB(133, 105, 240, 175), fontSize: 20);
         } else {
-          return null;
+          return const TextStyle(fontSize: 20);
         }
       }
 
