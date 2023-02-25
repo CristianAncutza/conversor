@@ -23,7 +23,8 @@ class _Tab2PageState extends State<Tab2Page>
     //String to;
     final headlines = Provider.of<ConvertService>(context);
 
-    var dolaroficial = headlines.rates.first.casa.compra;
+    var dolaroficial =
+        headlines.rates.length > 0 ? headlines.rates.first.casa.compra : "";
     return Scaffold(
         body: SafeArea(
             child: Padding(
