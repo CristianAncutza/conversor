@@ -12,11 +12,11 @@ String convertResponseToJson(List<ConvertResponse> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ConvertResponse {
+  Casa casa;
+
   ConvertResponse({
     required this.casa,
   });
-
-  Casa casa;
 
   factory ConvertResponse.fromJson(Map<String, dynamic> json) =>
       ConvertResponse(
@@ -29,80 +29,73 @@ class ConvertResponse {
 }
 
 class Casa {
-  Casa({
-    required this.nombre,
-    required this.compra,
-    required this.venta,
-    required this.agencia,
-    required this.observaciones,
-    this.geolocalizacion,
-    this.telefono,
-    this.direccion,
-    required this.decimales,
-  });
-
-  String nombre;
   String compra;
   String venta;
   String agencia;
-  Observaciones observaciones;
-  Geolocalizacion? geolocalizacion;
-  dynamic telefono;
-  dynamic direccion;
-  String decimales;
+  String nombre;
+  String? variacion;
+  String? ventaCero;
+  String? decimales;
+  String? mejorCompra;
+  String? mejorVenta;
+  String? fecha;
+  String? recorrido;
+  //Afluencia? afluencia;
+  //Afluencia? observaciones;
+
+  Casa({
+    required this.compra,
+    required this.venta,
+    required this.agencia,
+    required this.nombre,
+    this.variacion,
+    this.ventaCero,
+    this.decimales,
+    this.mejorCompra,
+    this.mejorVenta,
+    this.fecha,
+    this.recorrido,
+    //this.afluencia,
+    //this.observaciones,
+  });
 
   factory Casa.fromJson(Map<String, dynamic> json) => Casa(
-        nombre: json["nombre"],
         compra: json["compra"],
         venta: json["venta"],
         agencia: json["agencia"],
-        observaciones: Observaciones.fromJson(json["observaciones"]),
-        geolocalizacion: json["geolocalizacion"] == null
-            ? null
-            : Geolocalizacion.fromJson(json["geolocalizacion"]),
-        telefono: json["telefono"],
-        direccion: json["direccion"],
+        nombre: json["nombre"],
+        variacion: json["variacion"],
+        ventaCero: json["ventaCero"],
         decimales: json["decimales"],
+        mejorCompra: json["mejor_compra"],
+        mejorVenta: json["mejor_venta"],
+        fecha: json["fecha"],
+        recorrido: json["recorrido"],
+        //afluencia: Afluencia.fromJson(json["afluencia"]),
+        //observaciones: Afluencia?.fromJson(json["observaciones"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "nombre": nombre,
         "compra": compra,
         "venta": venta,
         "agencia": agencia,
-        "observaciones": observaciones.toJson(),
-        "geolocalizacion": geolocalizacion?.toJson(),
-        "telefono": telefono,
-        "direccion": direccion,
+        "nombre": nombre,
+        "variacion": variacion,
+        "ventaCero": ventaCero,
         "decimales": decimales,
+        "mejor_compra": mejorCompra,
+        "mejor_venta": mejorVenta,
+        "fecha": fecha,
+        "recorrido": recorrido,
+        //"afluencia": afluencia?.toJson() != null ? afluencia?.toJson() : "",
+        //"observaciones": observaciones?.toJson(),
       };
 }
 
-class Observaciones {
-  Observaciones();
+class Afluencia {
+  Afluencia();
 
-  factory Observaciones.fromJson(Map<String, dynamic> json) => Observaciones();
+  factory Afluencia.fromJson(Map<String, dynamic> json) => Afluencia();
 
   Map<String, dynamic> toJson() => {};
-}
-
-class Geolocalizacion {
-  Geolocalizacion({
-    required this.latitud,
-    required this.longitud,
-  });
-
-  dynamic latitud;
-  dynamic longitud;
-
-  factory Geolocalizacion.fromJson(Map<String, dynamic> json) =>
-      Geolocalizacion(
-        latitud: json["latitud"],
-        longitud: json["longitud"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "latitud": latitud,
-        "longitud": longitud,
-      };
 }
