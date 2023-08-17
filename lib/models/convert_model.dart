@@ -4,62 +4,58 @@
 
 import 'dart:convert';
 
-List<ConvertResponse> convertResponseFromJson(String str) =>
-    List<ConvertResponse>.from(
-        json.decode(str).map((x) => ConvertResponse.fromJson(x)));
+List<ConvertResponse> convertResponseFromJson(String str) => List<ConvertResponse>.from(json.decode(str).map((x) => ConvertResponse.fromJson(x)));
 
-String convertResponseToJson(List<ConvertResponse> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String convertResponseToJson(List<ConvertResponse> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ConvertResponse {
-  Casa casa;
+    Casa casa;
 
-  ConvertResponse({
-    required this.casa,
-  });
+    ConvertResponse({
+        required this.casa,
+    });
 
-  factory ConvertResponse.fromJson(Map<String, dynamic> json) =>
-      ConvertResponse(
+    factory ConvertResponse.fromJson(Map<String, dynamic> json) => ConvertResponse(
         casa: Casa.fromJson(json["casa"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "casa": casa.toJson(),
-      };
+    };
 }
 
 class Casa {
-  String compra;
-  String venta;
-  String agencia;
-  String nombre;
-  String? variacion;
-  String? ventaCero;
-  String? decimales;
-  String? mejorCompra;
-  String? mejorVenta;
-  String? fecha;
-  String? recorrido;
-  //Afluencia? afluencia;
-  //Afluencia? observaciones;
+    String compra;
+    dynamic venta;
+    String agencia;
+    String nombre;
+    String? variacion;
+    String? ventaCero;
+    String? decimales;
+    String? mejorCompra;
+    String? mejorVenta;
+    String? fecha;
+    String? recorrido;
+    Afluencia? afluencia;
+    Afluencia? observaciones;
 
-  Casa({
-    required this.compra,
-    required this.venta,
-    required this.agencia,
-    required this.nombre,
-    this.variacion,
-    this.ventaCero,
-    this.decimales,
-    this.mejorCompra,
-    this.mejorVenta,
-    this.fecha,
-    this.recorrido,
-    //this.afluencia,
-    //this.observaciones,
-  });
+    Casa({
+        required this.compra,
+        required this.venta,
+        required this.agencia,
+        required this.nombre,
+        this.variacion,
+        this.ventaCero,
+        this.decimales,
+        this.mejorCompra,
+        this.mejorVenta,
+        this.fecha,
+        this.recorrido,
+        this.afluencia,
+        this.observaciones,
+    });
 
-  factory Casa.fromJson(Map<String, dynamic> json) => Casa(
+    factory Casa.fromJson(Map<String, dynamic> json) => Casa(
         compra: json["compra"],
         venta: json["venta"],
         agencia: json["agencia"],
@@ -71,11 +67,11 @@ class Casa {
         mejorVenta: json["mejor_venta"],
         fecha: json["fecha"],
         recorrido: json["recorrido"],
-        //afluencia: Afluencia.fromJson(json["afluencia"]),
-        //observaciones: Afluencia?.fromJson(json["observaciones"]),
-      );
+        afluencia: json["afluencia"] == null ? null : Afluencia.fromJson(json["afluencia"]),
+        observaciones: json["observaciones"] == null ? null : Afluencia.fromJson(json["observaciones"]),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "compra": compra,
         "venta": venta,
         "agencia": agencia,
@@ -87,15 +83,17 @@ class Casa {
         "mejor_venta": mejorVenta,
         "fecha": fecha,
         "recorrido": recorrido,
-        //"afluencia": afluencia?.toJson() != null ? afluencia?.toJson() : "",
-        //"observaciones": observaciones?.toJson(),
-      };
+        "afluencia": afluencia?.toJson(),
+        "observaciones": observaciones?.toJson(),
+    };
 }
 
 class Afluencia {
-  Afluencia();
+    Afluencia();
 
-  factory Afluencia.fromJson(Map<String, dynamic> json) => Afluencia();
+    factory Afluencia.fromJson(Map<String, dynamic> json) => Afluencia(
+    );
 
-  Map<String, dynamic> toJson() => {};
+    Map<String, dynamic> toJson() => {
+    };
 }

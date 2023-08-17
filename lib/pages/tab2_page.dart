@@ -23,8 +23,8 @@ class _Tab2PageState extends State<Tab2Page>
     //String to;
     final headlines = Provider.of<ConvertService>(context);
 
-    var dolaroficial =
-        headlines.rates.length > 0 ? headlines.rates.first.casa.compra : "";
+    var dolarblue =
+        headlines.rates.length > 0 ? headlines.rates[1].casa.compra : "";
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -53,10 +53,7 @@ class _Tab2PageState extends State<Tab2Page>
                             if (currency == "dolar") {
                               if (value != "" || value.isNotEmpty) {
                                 setState(() {
-                                  result = (double.parse(value) *
-                                          double.parse(dolaroficial.replaceAll(
-                                              ',', '.')))
-                                      .toStringAsFixed(2);
+                                  result = (double.parse(value) * double.parse(dolarblue.replaceAll(',', '.'))).toStringAsFixed(2);
                                 });
                               } else {
                                 setState(() {
@@ -67,10 +64,7 @@ class _Tab2PageState extends State<Tab2Page>
                               //Pesos a dolares
                               if (value != "" || value.isNotEmpty) {
                                 setState(() {
-                                  result = (double.parse(value) /
-                                          double.parse(dolaroficial.replaceAll(
-                                              ',', '.')))
-                                      .toStringAsFixed(2);
+                                  result = (double.parse(value) / double.parse(dolarblue.replaceAll(',', '.'))).toStringAsFixed(2);
                                 });
                               } else {
                                 setState(() {

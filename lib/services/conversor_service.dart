@@ -3,8 +3,7 @@ import '../models/convert_model.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: constant_identifier_names
-const _URL_CONVERT =
-    'https://www.dolarsi.com/api/api.php?type=valoresprincipales';
+const _URL_CONVERT = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales';
 
 class ConvertService with ChangeNotifier {
   //el problema esta aca el json de la api de cotizacion devuelve un array en lugar de un objeto

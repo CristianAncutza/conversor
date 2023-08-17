@@ -91,19 +91,10 @@ class RatesDataSource extends DataGridSource {
                   columnName: 'nombre', value: dataGridRow.casa.nombre),
               DataGridCell<String>(
                   columnName: 'compra',
-                  value: dataGridRow.casa.compra != "No Cotiza"
-                      ? double.tryParse(
-                              dataGridRow.casa.compra.replaceAll(',', '.'))
-                          .toString()
-                      //.toStringAsFixed(2)
-                      : dataGridRow.casa.compra),
+                  value: dataGridRow.casa.compra != "No Cotiza" ? double.parse( dataGridRow.casa.compra.replaceAll('.','').replaceAll(',', '.')).toString() : dataGridRow.casa.compra),
               DataGridCell<String>(
                   columnName: 'venta',
-                  value: dataGridRow.casa.venta != "No Cotiza"
-                      ? double.parse(
-                              dataGridRow.casa.venta.replaceAll(',', '.'))
-                          .toStringAsFixed(2)
-                      : dataGridRow.casa.venta),
+                  value: dataGridRow.casa.venta != "No Cotiza" && dataGridRow.casa.nombre != "Bitcoin" ? double.parse(dataGridRow.casa.venta.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2) : "No Cotiza"),
             ]))
         .toList();
   }
