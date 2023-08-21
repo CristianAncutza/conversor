@@ -17,6 +17,12 @@ class _Tab1PageState extends State<Tab1Page>
   @override
   Widget build(BuildContext context) {
     final headlines = Provider.of<ConvertService>(context).rates;
+    if(headlines.length > 0 && headlines.length == 9){
+      if(headlines[7].casa.nombre == "Dolar" && headlines[8].casa.nombre == "Argentina"){
+        headlines.removeAt(7);
+        headlines.removeAt(7);
+      }
+    }
     final _rates = RatesDataSource(headlines);
 
     return SafeArea(
@@ -91,10 +97,10 @@ class RatesDataSource extends DataGridSource {
                   columnName: 'nombre', value: dataGridRow.casa.nombre),
               DataGridCell<String>(
                   columnName: 'compra',
-                  value: dataGridRow.casa.compra != "No Cotiza" ? double.parse( dataGridRow.casa.compra.replaceAll('.','').replaceAll(',', '.')).toString() : dataGridRow.casa.compra),
+                  value: dataGridRow.casa.compra != "No Cotiza" ? double.parse( dataGridRow.casa.compra.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2): dataGridRow.casa.compra),
               DataGridCell<String>(
                   columnName: 'venta',
-                  value: dataGridRow.casa.venta != "No Cotiza" && dataGridRow.casa.nombre != "Bitcoin" ? double.parse(dataGridRow.casa.venta.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2) : "No Cotiza"),
+                  value: dataGridRow.casa.venta != "No Cotiza" && dataGridRow.casa.nombre != "Bitcoin" && dataGridRow.casa.venta != "0" ? double.parse(dataGridRow.casa.venta.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2) : "No Cotiza"),
             ]))
         .toList();
   }
