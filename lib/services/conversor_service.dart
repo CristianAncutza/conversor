@@ -17,8 +17,9 @@ class ConvertService with ChangeNotifier {
     // ignore: unnecessary_string_interpolations
     //print('pase por conversor service');
     const url = '$_URL_CONVERT';
+
     final resp = await http.get(Uri.parse(url));
-    //print(resp.body);
+        
     final convertResponse = convertResponseFromJson(resp.body);
 
     this.rates.addAll(convertResponse);

@@ -7,7 +7,7 @@ import '../services/conversor_service.dart';
 //PANTALLA CONVERSOR
 class Tab2Page extends StatefulWidget {
   @override
-  _Tab2PageState createState() => _Tab2PageState();
+  _Tab2PageState createState() => _Tab2PageState();  
 }
 
 class _Tab2PageState extends State<Tab2Page>
@@ -18,13 +18,31 @@ class _Tab2PageState extends State<Tab2Page>
   String value2 = "Peso (ARS)";
   @override
   Widget build(BuildContext context) {
-    //List<String> currencies;
-    //String from;
-    //String to;
+
     final headlines = Provider.of<ConvertService>(context);
+    
+    /*if(headlines.rates.length == 0){
+      Future.delayed(Duration.zero,(){
+      showDialog(                  
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(              
+              title: Text('Atención!', textAlign: TextAlign.center),
+              content: Text('No hay comunicación con el servidor, revise su conexión a internet o pruebe mas tarde.'),              
+              actions: [                
+                TextButton(onPressed: () {
+                            Navigator.of(context).pop();
+                },                 
+                child: Text('OK'))
+              ],
+              
+            );
+      });
+      });
+    }*/
 
     var dolarblue =
-        headlines.rates.length > 0 ? headlines.rates[1].casa.compra : "";
+        headlines.rates.length > 0 ? headlines.rates[1].casa.venta : "";
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -53,7 +71,7 @@ class _Tab2PageState extends State<Tab2Page>
                             if (currency == "dolar") {
                               if (value != "" || value.isNotEmpty) {
                                 setState(() {
-                                  result = (double.parse(value) * double.parse(dolarblue.replaceAll(',', '.'))).toStringAsFixed(2);
+                                  result = (double.parse(value) * double.parse((dolarblue.replaceAll('.', '')).replaceAll(',','.')) ).toStringAsFixed(2);
                                 });
                               } else {
                                 setState(() {
@@ -64,7 +82,7 @@ class _Tab2PageState extends State<Tab2Page>
                               //Pesos a dolares
                               if (value != "" || value.isNotEmpty) {
                                 setState(() {
-                                  result = (double.parse(value) / double.parse(dolarblue.replaceAll(',', '.'))).toStringAsFixed(2);
+                                  result = (double.parse(value) / double.parse((dolarblue.replaceAll('.', '')).replaceAll(',','.'))).toStringAsFixed(2);
                                 });
                               } else {
                                 setState(() {
