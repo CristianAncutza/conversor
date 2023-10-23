@@ -24,6 +24,26 @@ class _Tab1PageState extends State<Tab1Page>
       }
     }
     final _rates = RatesDataSource(headlines);
+    
+    if(_rates.rows.length == 0){
+      Future.delayed(Duration.zero,(){
+      showDialog(                  
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(              
+              title: Text('Atención!', textAlign: TextAlign.center),
+              content: Text('No hay comunicación con el servidor, revise su conexión a internet o pruebe mas tarde.'),              
+              actions: [                
+                TextButton(onPressed: () {
+                            Navigator.of(context).pop();
+                },                 
+                child: Text('OK'))
+              ],
+              
+            );
+      });
+      });
+    }
 
     return SafeArea(
         child: Scaffold(

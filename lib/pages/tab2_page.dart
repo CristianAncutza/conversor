@@ -21,26 +21,6 @@ class _Tab2PageState extends State<Tab2Page>
 
     final headlines = Provider.of<ConvertService>(context);
     
-    /*if(headlines.rates.length == 0){
-      Future.delayed(Duration.zero,(){
-      showDialog(                  
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(              
-              title: Text('Atención!', textAlign: TextAlign.center),
-              content: Text('No hay comunicación con el servidor, revise su conexión a internet o pruebe mas tarde.'),              
-              actions: [                
-                TextButton(onPressed: () {
-                            Navigator.of(context).pop();
-                },                 
-                child: Text('OK'))
-              ],
-              
-            );
-      });
-      });
-    }*/
-
     var dolarblue =
         headlines.rates.length > 0 ? headlines.rates[1].casa.venta : "";
     return Scaffold(
