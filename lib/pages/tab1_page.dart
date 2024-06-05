@@ -18,10 +18,10 @@ class _Tab1PageState extends State<Tab1Page>
   Widget build(BuildContext context) {
     final headlines = Provider.of<ConvertService>(context).rates;
     if(headlines.length > 0 && headlines.length == 9){
-      if(headlines[7].casa.nombre == "Dolar" && headlines[8].casa.nombre == "Argentina"){
+      /*if(headlines[7].casa.nombre == "Dolar" && headlines[8].casa.nombre == "Argentina"){
         headlines.removeAt(7);
         headlines.removeAt(7);
-      }
+      }*/
     }
     final _rates = RatesDataSource(headlines);
     
@@ -110,17 +110,17 @@ class _Tab1PageState extends State<Tab1Page>
 }
 
 class RatesDataSource extends DataGridSource {
-  RatesDataSource(List<ConvertResponse> rates) {
+  RatesDataSource(List<Convert> rates) {
     dataGridRows = rates
         .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
               DataGridCell<String>(
-                  columnName: 'nombre', value: dataGridRow.casa.nombre),
+                  columnName: 'nombre', value: dataGridRow.nombre),
               DataGridCell<String>(
                   columnName: 'compra',
-                  value: dataGridRow.casa.compra != "No Cotiza" ? double.parse( dataGridRow.casa.compra.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2): dataGridRow.casa.compra),
+                  value: dataGridRow.compra.toString(),), /*!= "No Cotiza" ? double.parse( dataGridRow.compra.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2): dataGridRow.casa.compra),*/
               DataGridCell<String>(
                   columnName: 'venta',
-                  value: dataGridRow.casa.venta != "No Cotiza" && dataGridRow.casa.nombre != "Bitcoin" && dataGridRow.casa.venta != "0" ? double.parse(dataGridRow.casa.venta.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2) : "No Cotiza"),
+                  value: dataGridRow.venta.toString(),), /*!= "No Cotiza" && dataGridRow.nombre != "Bitcoin" && dataGridRow.casa.venta != "0" ? double.parse(dataGridRow.casa.venta.replaceAll('.','').replaceAll(',', '.')).toStringAsFixed(2) : "No Cotiza"),*/
             ]))
         .toList();
   }
