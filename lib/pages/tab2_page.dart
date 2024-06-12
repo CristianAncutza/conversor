@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/conversor_service.dart';
 
-// PANTALLA CONVERSOR
 class Tab2Page extends StatefulWidget {
   @override
   _Tab2PageState createState() => _Tab2PageState();
@@ -13,15 +12,47 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
   String currency = "dolar";
   String value1 = "Dolar (USD)";
   String value2 = "Peso (ARS)";
+  String selectedDollarType = "Dolar Blue";
+  List<String> dollarTypes = [
+    "Dolar Blue",
+    "Dolar Oficial",
+    "Dolar Bolsa",
+    "Dolar Contado con liquidación",
+    "Dolar Mayorista",
+    "Dolar Cripto",
+    "Dolar Tarjeta"
+  ];
 
   @override
   Widget build(BuildContext context) {
     final headlines = Provider.of<ConvertService>(context);
 
-    // Asegurarse de que dolarblue es un double
-    double dolarblue = 0.0;
-    if (headlines.rates.isNotEmpty) {
-      dolarblue = double.tryParse(headlines.rates[1].venta.toString()) ?? 0.0;
+    double selectedDollarRate = 0.0;
+
+    switch (selectedDollarType) {
+      case "Dolar Blue":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[1].venta : 0.0;
+        break;
+      case "Dolar Oficial":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[0].venta : 0.0;
+        break;
+      case "Dolar Bolsa":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[2].venta : 0.0;
+        break;
+      case "Dolar Contado con liquidación":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[3].venta : 0.0;
+        break;
+      case "Dolar Mayorista":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[4].venta : 0.0;
+        break;
+      case "Dolar Cripto":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[5].venta : 0.0;
+        break;
+      case "Dolar Tarjeta":
+        selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[6].venta : 0.0;
+        break;
+      default:
+        selectedDollarRate = 0.0;
     }
 
     return Scaffold(
@@ -32,10 +63,44 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 200.0,
-                child: const Text(""),
+              // Contenedor para la lista desplegable
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white, // Cambio de color a blanco
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedDollarType,
+                          icon: Icon(Icons.arrow_drop_down, color: Colors.black), // Color del icono
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Colors.black, fontSize: 16.0),
+                          dropdownColor: Colors.white, // Cambio de color de fondo del menú desplegable
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedDollarType = newValue!;
+                            });
+                          },
+                          items: dollarTypes.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: TextStyle(color: Colors.black)), // Color del texto de los elementos
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              SizedBox(height: 20.0), // Separación entre la lista desplegable y los otros elementos
+
               Expanded(
                 child: Center(
                   child: Column(
@@ -43,15 +108,14 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextField(
-                        // Calculo del resultado de la conversión
                         onChanged: (value) {
                           if (value.isNotEmpty) {
                             setState(() {
                               double parsedValue = double.tryParse(value) ?? 0.0;
                               if (currency == "dolar") {
-                                result = (parsedValue * dolarblue).toStringAsFixed(2);
+                                result = (parsedValue * selectedDollarRate).toStringAsFixed(2);
                               } else {
-                                result = (parsedValue / dolarblue).toStringAsFixed(2);
+                                result = (parsedValue / selectedDollarRate).toStringAsFixed(2);
                               }
                             });
                           } else {
