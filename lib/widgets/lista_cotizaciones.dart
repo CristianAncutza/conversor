@@ -43,6 +43,7 @@ class _Cotizacion extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _TarjetaBotones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

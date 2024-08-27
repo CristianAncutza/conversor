@@ -1,3 +1,4 @@
+import 'package:conversorapp/pages/tab3_page.dart';
 import 'package:conversorapp/pages/tabs_page.dart';
 import 'package:conversorapp/services/conversor_service.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: TabsPage(),
           theme: ThemeData.dark()
-              .copyWith(appBarTheme: AppBarTheme(color: Colors.indigo))),
-    );
+              .copyWith(appBarTheme: AppBarTheme(color: Colors.indigo)),
+          routes: {
+          '/grafico': (context) => EvolutionChart(EvolutionChart.createSampleData(),), 
+        },
+    ));
   }
 }

@@ -24,6 +24,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
   ];
 
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     final headlines = Provider.of<ConvertService>(context);
 
@@ -70,18 +71,18 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       decoration: BoxDecoration(
-                        color: Colors.white, // Cambio de color a blanco
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(color: Colors.grey),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: selectedDollarType,
-                          icon: Icon(Icons.arrow_drop_down, color: Colors.black), // Color del icono
+                          icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                           iconSize: 24,
                           elevation: 16,
                           style: TextStyle(color: Colors.black, fontSize: 16.0),
-                          dropdownColor: Colors.white, // Cambio de color de fondo del menú desplegable
+                          dropdownColor: Colors.white,
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedDollarType = newValue!;
@@ -90,7 +91,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           items: dollarTypes.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: Text(value, style: TextStyle(color: Colors.black)), // Color del texto de los elementos
+                              child: Text(value, style: TextStyle(color: Colors.black)),
                             );
                           }).toList(),
                         ),
@@ -99,7 +100,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                   ),
                 ],
               ),
-              SizedBox(height: 20.0), // Separación entre la lista desplegable y los otros elementos
+              SizedBox(height: 20.0),
 
               Expanded(
                 child: Center(
@@ -196,6 +197,14 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                             ),
                           ],
                         ),
+                      ),
+                      const SizedBox(height: 20.0),
+                      // Botón para redirigir al gráfico
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/grafico');
+                        },
+                        child: Text('Ver Gráfico'),
                       ),
                     ],
                   ),
