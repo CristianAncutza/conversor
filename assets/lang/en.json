@@ -1,0 +1,24 @@
+{
+  "tabs": {
+    "tab1": {
+      "title": "Rates",
+      "alert": {
+        "title": "Attention!",
+        "content": "There is no communication with the server, please check your internet connection or try again later.",
+        "ok_button": "OK"
+      },
+      "columns": {
+        "name": "Name",
+        "buy": "Buy",
+        "sell": "Sell"
+      }
+    },
+    "tab2": {
+      "valorAConvertir": "Value to Convert",
+      "pesoARS": "Peso (ARS)",
+      "dolarUSD": "Dollar (USD)",
+      "resultado": "Result",
+      "verGrafico": "View Chart"
+    }
+  }
+}

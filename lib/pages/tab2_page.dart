@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/conversor_service.dart';
+import '../services/localization_service.dart';
 
 class Tab2Page extends StatefulWidget {
   @override
@@ -26,7 +27,10 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
+    super.build(context);
+
     final headlines = Provider.of<ConvertService>(context);
+    final localizationService = Provider.of<LocalizationService>(context);
 
     double selectedDollarRate = 0.0;
 
@@ -98,6 +102,16 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                       ),
                     ),
                   ),
+                  IconButton(
+                    icon: Icon(Icons.language),
+                    onPressed: () async {
+                      String newLocale = localizationService.locale.languageCode == 'es' ? 'en' : 'es';
+                      LocalizationService newLocalizationService = await LocalizationService.load(newLocale);
+                      setState(() {
+                        Provider.of<LocalizationService>(context, listen: false).update(newLocalizationService);
+                      });
+                    },
+                  ),
                 ],
               ),
               SizedBox(height: 20.0),
@@ -125,16 +139,16 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                             });
                           }
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: "Valor a convertir",
+                          labelText: localizationService.translate('valorAConvertir'), // Use the translation key here
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 16.0,
                           ),
                         ),
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -142,7 +156,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                       ),
-                      const SizedBox(height: 10.0),
+                      SizedBox(height: 10.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -152,13 +166,13 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                               setState(() {
                                 if (currency == "dolar") {
                                   currency = "peso";
-                                  value1 = "Peso (ARS)";
-                                  value2 = "Dolar (USD)";
+                                  value1 = localizationService.translate('pesoARS'); // Use the translation key here
+                                  value2 = localizationService.translate('dolarUSD'); // Use the translation key here
                                   result = "0.00";
                                 } else if (currency == "peso") {
                                   currency = "dolar";
-                                  value1 = "Dolar (USD)";
-                                  value2 = "Peso (ARS)";
+                                  value1 = localizationService.translate('dolarUSD'); // Use the translation key here
+                                  value2 = localizationService.translate('pesoARS'); // Use the translation key here
                                   result = "0.00";
                                 }
                               });
@@ -169,7 +183,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           Text(value2),
                         ],
                       ),
-                      const SizedBox(height: 20.0),
+                      SizedBox(height: 20.0),
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.all(16.0),
@@ -179,8 +193,8 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         ),
                         child: Column(
                           children: [
-                            const Text(
-                              "Resultado",
+                            Text(
+                              localizationService.translate('resultado'), // Use the translation key here
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15.0,
@@ -189,7 +203,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                             ),
                             Text(
                               result,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 40.0,
                                 fontWeight: FontWeight.bold,
@@ -198,13 +212,13 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20.0),
+                      SizedBox(height: 20.0),
                       // Botón para redirigir al gráfico
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/grafico');
                         },
-                        child: Text('Ver Gráfico'),
+                        child: Text(localizationService.translate('verGrafico')), // Use the translation key here
                       ),
                     ],
                   ),

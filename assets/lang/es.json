@@ -1,0 +1,17 @@
+{
+  "atencion": "Atención!",
+  "no_conexion": "No hay comunicación con el servidor, revise su conexión a internet o pruebe más tarde.",
+  "ok": "OK",
+  "nombre": "Nombre",
+  "compra": "Compra",
+  "venta": "Venta",
+  "tabs": {
+    "tab2": {
+      "valorAConvertir": "Valor a Convertir",
+      "pesoARS": "Peso (ARS)",
+      "dolarUSD": "Dólar (USD)",
+      "resultado": "Resultado",
+      "verGrafico": "Ver Gráfico"
+    }
+  }
+}
