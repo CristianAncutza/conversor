@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/conversor_service.dart';
+import '../services/localization_service.dart';
 
 class Tab2Page extends StatefulWidget {
   @override
@@ -22,10 +23,14 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
     "Dolar Cripto",
     "Dolar Tarjeta"
   ];
-
+ double inputValue = 0.0;
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
+    super.build(context);
+
     final headlines = Provider.of<ConvertService>(context);
+    final localizationService = Provider.of<LocalizationService>(context);
 
     double selectedDollarRate = 0.0;
 
@@ -70,18 +75,18 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       decoration: BoxDecoration(
-                        color: Colors.white, // Cambio de color a blanco
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(color: Colors.grey),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: selectedDollarType,
-                          icon: Icon(Icons.arrow_drop_down, color: Colors.black), // Color del icono
+                          icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                           iconSize: 24,
                           elevation: 16,
                           style: TextStyle(color: Colors.black, fontSize: 16.0),
-                          dropdownColor: Colors.white, // Cambio de color de fondo del menú desplegable
+                          dropdownColor: Colors.white,
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedDollarType = newValue!;
@@ -90,16 +95,26 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           items: dollarTypes.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: Text(value, style: TextStyle(color: Colors.black)), // Color del texto de los elementos
+                              child: Text(value, style: TextStyle(color: Colors.black)),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
                   ),
+                  /*IconButton(
+                    icon: Icon(Icons.language),
+                    onPressed: () async {
+                      String newLocale = localizationService.locale.languageCode == 'es' ? 'en' : 'es';
+                      LocalizationService newLocalizationService = await LocalizationService.load(newLocale);
+                      setState(() {
+                        Provider.of<LocalizationService>(context, listen: false).update(newLocalizationService);
+                      });
+                    },
+                  ),*/
                 ],
               ),
-              SizedBox(height: 20.0), // Separación entre la lista desplegable y los otros elementos
+              SizedBox(height: 20.0),
 
               Expanded(
                 child: Center(
@@ -111,29 +126,30 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         onChanged: (value) {
                           if (value.isNotEmpty) {
                             setState(() {
-                              double parsedValue = double.tryParse(value) ?? 0.0;
+                              inputValue = double.tryParse(value) ?? 0.0;
                               if (currency == "dolar") {
-                                result = (parsedValue * selectedDollarRate).toStringAsFixed(2);
+                                result = (inputValue * selectedDollarRate).toStringAsFixed(2);
                               } else {
-                                result = (parsedValue / selectedDollarRate).toStringAsFixed(2);
+                                result = (inputValue / selectedDollarRate).toStringAsFixed(2);
                               }
                             });
                           } else {
                             setState(() {
                               result = "0.00";
+                              inputValue = 0.0;
                             });
                           }
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          labelText: "Valor a convertir",
+                          labelText: localizationService.translate('valorAConvertir'), // Use the translation key here
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 16.0,
                           ),
                         ),
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -141,7 +157,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                       ),
-                      const SizedBox(height: 10.0),
+                      SizedBox(height: 10.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -151,14 +167,14 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                               setState(() {
                                 if (currency == "dolar") {
                                   currency = "peso";
-                                  value1 = "Peso (ARS)";
-                                  value2 = "Dolar (USD)";
-                                  result = "0.00";
+                                  value1 = localizationService.translate('pesoARS'); // Use the translation key here
+                                  value2 = localizationService.translate('dolarUSD'); // Use the translation key here
+                                  result = (inputValue / selectedDollarRate).toStringAsFixed(2); // Recálculo al cambiar el sentido
                                 } else if (currency == "peso") {
                                   currency = "dolar";
-                                  value1 = "Dolar (USD)";
-                                  value2 = "Peso (ARS)";
-                                  result = "0.00";
+                                  value1 = localizationService.translate('dolarUSD'); // Use the translation key here
+                                  value2 = localizationService.translate('pesoARS'); // Use the translation key here
+                                  result = (inputValue * selectedDollarRate).toStringAsFixed(2); // Recálculo al cambiar el sentido
                                 }
                               });
                             },
@@ -168,7 +184,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           Text(value2),
                         ],
                       ),
-                      const SizedBox(height: 20.0),
+                      SizedBox(height: 20.0),
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.all(16.0),
@@ -178,8 +194,8 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         ),
                         child: Column(
                           children: [
-                            const Text(
-                              "Resultado",
+                            Text(
+                              localizationService.translate('resultado'), // Use the translation key here
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15.0,
@@ -188,7 +204,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                             ),
                             Text(
                               result,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 40.0,
                                 fontWeight: FontWeight.bold,
@@ -197,6 +213,14 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           ],
                         ),
                       ),
+                      SizedBox(height: 20.0),
+                      // Botón para redirigir al gráfico
+                      /*ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/grafico');
+                        },
+                        child: Text(localizationService.translate('verGrafico')), // Use the translation key here
+                      ),*/
                     ],
                   ),
                 ),

@@ -1,0 +1,25 @@
+{
+    "tab1": {
+      "atencion": "Atention!",
+      "no_conexion": "No connection with the servidor, try again later.",
+      "ok": "OK",
+      "Nombre": "Name",
+      "Compra": "Buy",
+      "Venta": "Sell"
+    },
+
+    "tabs": {
+      "bottomNav": {
+        "conversor": "Converter",
+        "cotizaciones": "Rates"
+    },
+
+    "tab2": {
+      "valorAConvertir": "Value to convert",
+      "pesoARS": "Peso (ARS)",
+      "dolarUSD": "Dollar (USD)",
+      "resultado": "Result",
+      "verGrafico": "View Chart"
+    }
+  }
+}
