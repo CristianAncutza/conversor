@@ -23,7 +23,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
     "Dolar Cripto",
     "Dolar Tarjeta"
   ];
-
+ double inputValue = 0.0;
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                       ),
                     ),
                   ),
-                  IconButton(
+                  /*IconButton(
                     icon: Icon(Icons.language),
                     onPressed: () async {
                       String newLocale = localizationService.locale.languageCode == 'es' ? 'en' : 'es';
@@ -111,7 +111,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         Provider.of<LocalizationService>(context, listen: false).update(newLocalizationService);
                       });
                     },
-                  ),
+                  ),*/
                 ],
               ),
               SizedBox(height: 20.0),
@@ -126,16 +126,17 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         onChanged: (value) {
                           if (value.isNotEmpty) {
                             setState(() {
-                              double parsedValue = double.tryParse(value) ?? 0.0;
+                              inputValue = double.tryParse(value) ?? 0.0;
                               if (currency == "dolar") {
-                                result = (parsedValue * selectedDollarRate).toStringAsFixed(2);
+                                result = (inputValue * selectedDollarRate).toStringAsFixed(2);
                               } else {
-                                result = (parsedValue / selectedDollarRate).toStringAsFixed(2);
+                                result = (inputValue / selectedDollarRate).toStringAsFixed(2);
                               }
                             });
                           } else {
                             setState(() {
                               result = "0.00";
+                              inputValue = 0.0;
                             });
                           }
                         },
@@ -168,12 +169,12 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                                   currency = "peso";
                                   value1 = localizationService.translate('pesoARS'); // Use the translation key here
                                   value2 = localizationService.translate('dolarUSD'); // Use the translation key here
-                                  result = "0.00";
+                                  result = (inputValue / selectedDollarRate).toStringAsFixed(2); // Recálculo al cambiar el sentido
                                 } else if (currency == "peso") {
                                   currency = "dolar";
                                   value1 = localizationService.translate('dolarUSD'); // Use the translation key here
                                   value2 = localizationService.translate('pesoARS'); // Use the translation key here
-                                  result = "0.00";
+                                  result = (inputValue * selectedDollarRate).toStringAsFixed(2); // Recálculo al cambiar el sentido
                                 }
                               });
                             },
@@ -214,12 +215,12 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                       ),
                       SizedBox(height: 20.0),
                       // Botón para redirigir al gráfico
-                      ElevatedButton(
+                      /*ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/grafico');
                         },
                         child: Text(localizationService.translate('verGrafico')), // Use the translation key here
-                      ),
+                      ),*/
                     ],
                   ),
                 ),

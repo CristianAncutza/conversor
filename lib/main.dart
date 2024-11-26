@@ -37,7 +37,9 @@ class MyApp extends StatelessWidget {
                 .copyWith(appBarTheme: AppBarTheme(color: Colors.indigo)),
             routes: {
               '/grafico': (context) => EvolutionChart(
-                EvolutionChart.createSampleData(),
+                EvolutionChart.createSampleData( // Crea los datos de gráfico
+                  Provider.of<ConvertService>(context).rates,
+                ),
               ),
             },
           );

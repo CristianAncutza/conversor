@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import '../services/conversor_service.dart';  // Importa tu servicio ConvertService
+import '../models/convert_model.dart';  // Si necesitas el modelo de Convert
 
 class EvolutionChart extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
@@ -13,19 +15,14 @@ class EvolutionChart extends StatelessWidget {
       seriesList,
       animate: animate,
       dateTimeFactory: const charts.LocalDateTimeFactory(),
-      // Puedes personalizar más opciones aquí
     );
   }
 
-  static List<charts.Series<dynamic, DateTime>> createSampleData() {
-    final data = [
-      CurrencyEvolution(DateTime(2023, 8, 1), 150),
-      CurrencyEvolution(DateTime(2023, 9, 1), 155),
-      CurrencyEvolution(DateTime(2023, 10, 1), 160),
-      CurrencyEvolution(DateTime(2023, 11, 1), 162),
-      CurrencyEvolution(DateTime(2023, 12, 1), 165),
-      // Agrega más datos aquí
-    ];
+  // Método para convertir las cotizaciones en datos de gráfico
+  static List<charts.Series<dynamic, DateTime>> createSampleData(List<Convert> rates) {
+    final data = rates.map((rate) {
+      return CurrencyEvolution(DateTime.now(), rate.venta);  // Usa la fecha y valor de cada cotización
+    }).toList();
 
     return [
       charts.Series<CurrencyEvolution, DateTime>(
@@ -37,8 +34,6 @@ class EvolutionChart extends StatelessWidget {
       )
     ];
   }
-
-  
 }
 
 class CurrencyEvolution {
