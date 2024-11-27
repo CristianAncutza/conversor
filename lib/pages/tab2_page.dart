@@ -23,7 +23,8 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
     "Dolar Cripto",
     "Dolar Tarjeta"
   ];
- double inputValue = 0.0;
+  double inputValue = 0.0;
+
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
 
     double selectedDollarRate = 0.0;
 
+    // Calcula la tasa de conversión según el tipo de dólar seleccionado
     switch (selectedDollarType) {
       case "Dolar Blue":
         selectedDollarRate = headlines.rates.isNotEmpty ? headlines.rates[1].venta : 0.0;
@@ -58,6 +60,15 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
         break;
       default:
         selectedDollarRate = 0.0;
+    }
+
+    // Si el valor de entrada ha cambiado, recalcular la conversión automáticamente
+    if (inputValue != 0.0) {
+      if (currency == "dolar") {
+        result = (inputValue * selectedDollarRate).toStringAsFixed(2);
+      } else {
+        result = (inputValue / selectedDollarRate).toStringAsFixed(2);
+      }
     }
 
     return Scaffold(
@@ -90,6 +101,12 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedDollarType = newValue!;
+                              // Recalcular la conversión al cambiar el tipo de dólar
+                              if (currency == "dolar") {
+                                result = (inputValue * selectedDollarRate).toStringAsFixed(2);
+                              } else {
+                                result = (inputValue / selectedDollarRate).toStringAsFixed(2);
+                              }
                             });
                           },
                           items: dollarTypes.map<DropdownMenuItem<String>>((String value) {
@@ -102,16 +119,6 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                       ),
                     ),
                   ),
-                  /*IconButton(
-                    icon: Icon(Icons.language),
-                    onPressed: () async {
-                      String newLocale = localizationService.locale.languageCode == 'es' ? 'en' : 'es';
-                      LocalizationService newLocalizationService = await LocalizationService.load(newLocale);
-                      setState(() {
-                        Provider.of<LocalizationService>(context, listen: false).update(newLocalizationService);
-                      });
-                    },
-                  ),*/
                 ],
               ),
               SizedBox(height: 20.0),
@@ -214,13 +221,6 @@ class _Tab2PageState extends State<Tab2Page> with AutomaticKeepAliveClientMixin 
                         ),
                       ),
                       SizedBox(height: 20.0),
-                      // Botón para redirigir al gráfico
-                      /*ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/grafico');
-                        },
-                        child: Text(localizationService.translate('verGrafico')), // Use the translation key here
-                      ),*/
                     ],
                   ),
                 ),
